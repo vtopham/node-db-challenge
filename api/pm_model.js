@@ -9,8 +9,9 @@ module.exports = {
     getTasks
 }
 
-function addResource () {
-
+function addResource (resource) {
+    return db('Resources')
+        .insert(resource)
 }
 function getResources () {
    return db.select('*')

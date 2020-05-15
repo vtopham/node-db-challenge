@@ -10,7 +10,15 @@ router.get('/', (req, res) => {
 })
 
 //add a resource
-
+router.post('/resources', (req, res) => {
+    Model.addResource(req.body)
+        .then(resource => {
+            res.status(200).json({data: resource})
+        })
+        .catch(err => {
+            res.status(500).json({message: "error retreiving resources", error: err})
+        })
+})
 
 //retrieve the list of resources
 router.get('/resources', (req, res) => {
