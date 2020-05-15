@@ -38,7 +38,7 @@ router.post('/projects', (req, res) => {
             res.status(200).json({data: project})
         })
         .catch(err => {
-            res.status(500).json({message: "error retreiving projects", error: err})
+            res.status(500).json({message: "error adding your project", error: err})
         })
 })
 
@@ -55,8 +55,26 @@ router.get('/projects', (req, res) => {
 })
 
 //add a task
+router.post('/tasks', (req, res) => {
+    Model.addTask(req.body)
+        .then(project => {
+            res.status(200).json({data: project})
+        })
+        .catch(err => {
+            res.status(500).json({message: "error adding task", error: err})
+        })
+})
+
 
 //retrieve a list of all tasks
-
+router.get('/tasks', (req, res) => {
+    Model.getTasks()
+        .then(tasks => {
+            res.status(200).json({data: tasks})
+        })
+        .catch(err => {
+            res.status(500).json({message: "error retreiving tasks", error: err})
+        })
+})
 
 module.exports = router

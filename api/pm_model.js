@@ -25,9 +25,12 @@ function getProjects () {
     return db.select('*')
         .from('Projects')
 }
-function addTask () {
-
+function addTask (task) {
+    return db('Tasks')
+        .insert(task)
 }
 function getTasks () {
+    return db.select('*')
+        .from('Tasks')
 
 }
