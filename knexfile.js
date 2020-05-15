@@ -7,7 +7,7 @@ module.exports = {
     connection: {
       filename: './data/projectmanager.sqlite3'
     },
-    notNullable: true,
+    useNullAsDefault: true,
     pool: {
       afterCreate: (conn, done) => {
         // runs after a connection is made to the sqlite engine
