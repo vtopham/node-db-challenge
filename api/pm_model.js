@@ -17,11 +17,13 @@ function getResources () {
    return db.select('*')
         .from('Resources')
 }
-function addProject () {
-
+function addProject (project) {
+    return db('Projects')
+        .insert(project)
 }
 function getProjects () {
-
+    return db.select('*')
+        .from('Projects')
 }
 function addTask () {
 
