@@ -17,24 +17,18 @@ exports.up = function(knex) {
   })
   .createTable('RequiredResources', tbl => {
       tbl.increments('id');
-      tbl.foreign('project_id')
+      tbl.integer('project_id')
         .notNullable()
-        .references('Projects.id')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
-      tbl.foreign('resource_id')
-        .notNullable()
+        .references('Projects.id');
+      tbl.integer('resource_id')
         .references('Resources.id')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
+        .notNullable();
   })
   .createTable('Tasks', tbl => {
       tbl.increments('id');
-      tbl.foreign('project_id')
-        .notNullable()
+      tbl.integer('project_id')
         .references('Projects.id')
-        .onDelete('RESTRICT')
-        .onUpdate('CASCADE');
+        .notNullable();
       tbl.string('description', 200)
         .notNullable();
       tbl.string('notes', 200);
