@@ -3,10 +3,13 @@ const db = require('../db-config')
 module.exports = {
     addResource,
     getResources,
+    getResourcesByProjectId,
     addProject,
     getProjects,
+    getProjectById,
     addTask,
-    getTasks
+    getTasks,
+    getTasksByProjectId
 }
 
 function addResource (resource) {
@@ -17,6 +20,13 @@ function getResources () {
    return db.select('*')
         .from('Resources')
 }
+
+function getResourcesByProjectId(project_id) {
+    return db.select('Resources.id', 'Resources.name', 'Resources.description') 
+        .from('RequiredResources')
+        .where({project_id})
+        .join('Resources', 'Resources.id', '=', 'RequiredResources.resource_id')
+}
 function addProject (project) {
     return db('Projects')
         .insert(project)
@@ -24,6 +34,13 @@ function addProject (project) {
 function getProjects () {
     return db.select('*')
         .from('Projects')
+}
+
+function getProjectById(id) {
+    return db.select('*')
+        .from('Projects')
+        .where({id})
+        
 }
 function addTask (task) {
     return db('Tasks')
@@ -38,4 +55,11 @@ function getTasks () {
         .from('Tasks')
         .join('Projects', 'Projects.id', '=', 'Tasks.project_id')
 
+}
+
+function getTasksByProjectId(project_id) {
+    return db.select('Tasks.id', 'Tasks.description', 'Tasks.notes', 'Tasks.completed_status')
+        .from('Tasks')
+        .where({project_id})
+        
 }

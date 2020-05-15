@@ -31,6 +31,8 @@ router.get('/resources', (req, res) => {
         })
 })
 
+
+
 //adding a project
 router.post('/projects', (req, res) => {
     Model.addProject(req.body)
@@ -52,6 +54,38 @@ router.get('/projects', (req, res) => {
         .catch(err => {
             res.status(500).json({message: "error retreiving projects", error: err})
         })
+})
+
+//get a project by ID - SPRINT
+
+router.get('/projects/:id', (req, res) => {
+    const project_id = req.params.id
+    //get the project
+    Model.getProjectById(project_id)
+        .then(project => {
+            //get the tasks
+            Model.getTasksByProjectId(project_id)
+                .then(tasks => {
+                    Model.getResourcesByProjectId(project_id)
+                        .then(resources => {
+                            res.status(200).json({...project[0], tasks: tasks, resources: resources})
+                        })
+                        .catch(err => {
+                            res.status(500).json({message: "error retreiving resources", error: err})
+                        })
+                })
+                .catch(err => {
+                    res.status(500).json({message: "error retreiving tasks", error: err})
+                })
+
+            
+                
+        })
+        .catch(err => {
+            res.status(500).json({message: "error retreiving project", error: err})
+        })
+
+    
 })
 
 //add a task
